@@ -7,7 +7,7 @@ using namespace Geometry;
 template <typename T> struct Point { T x, y; };
 template <typename U> struct Triangle {
 	Point<U> pts[3];
-};
+};//
 
 float x_intersect(Point<float> p1, Point<float> p2, Point<float> p3, Point<float> p4) {
 	float num = (p1.x * p2.y - p1.y * p2.x) * (p3.x - p4.x) - (p1.x - p2.x) * (p3.x * p4.y - p3.y * p4.x);
