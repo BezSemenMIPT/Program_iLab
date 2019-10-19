@@ -1,54 +1,58 @@
 #include<iostream>
 #include<vector>
 #include<algorithm>
- 
+
 using namespace std;
 
 
 int main() {
-	int n, j1, j2, sum, flag;
+	int n, j2, sum, third, s, flag;
 	cin >> n;
-	vector<int> t1(n);//out
+	vector<int> t1(2 * n);//out
 	vector<int> t2(n);//in
-	vector<int> temp(2*n);
+	vector<int> temp(2 * n);
 	for (int i = n; i < 2 * n; i++) {
 		temp[i] = 1;
 	}
 	do {
-		j1 = 0;
+		t1.assign(temp.begin(), temp.end());
+		s = 0;
 		j2 = 0;
 		for (int i = 0; i < temp.size(); i++) {
 			if (temp[i]) {
 				t2[j2] = i + 1;
+				s += t2[j2];
 				j2++;
 			}
-			else {
-				t1[j1] = i + 1;
-				j1++;
-			}
-		}	
+		}
 		do {
-			flag = 1;
-			sum = t2[0] + t2[1] + t1[0];
-			for (int k = 1; k < n; k++) {
-				if (t2[k] + t2[(k + 1) % n] + t1[k] != sum) {
-					flag = 0;
-					break;
+			flag = 0;
+			if (s % n == 0) {
+				sum = 1 + 2 * n + s / n;
+				for (int x = 0; x < n; x++) {
+					third = sum - t2[x] - t2[(x + 1) % n];
+					if ((third <= 0) || (third > 2 * n)) {
+						flag = 1;
+						break;
+					}
+					if (t1[third - 1] == 0) t1[third - 1] = 2;
+					else if (t1[third - 1] != 0) {
+						flag = 1;
+						break;
+					}
 				}
 			}
-			if (flag == 1) {
-				for (int x = 0; x < n; x++) {
-					cout << "(" << t1[x] << ", " << t2[x] << ", " << t2[(x + 1) % n] << ") ";
-				}
-				cout << endl;
-				for (int x = 0; x < n; x++) {
-					cout << "(" << t1[x] << ", " << t2[(x + 1) % n] << ", " << t2[x] << ") ";
-				}
-				cout << endl;
+			else break;
+			if (flag == 1) continue;
+			for (int x = 0; x < n; x++) {
+				third = sum - t2[x] - t2[(x + 1) % n];
+				cout << "(" << t2[x] << ", " << t2[(x + 1) % n] << ", " << third << ") ";
 			}
+			cout << endl;
 		} while (next_permutation(t2.begin(), t2.end()));
 	} while (next_permutation(temp.begin(), temp.end()));
 }
+
 
 
 
