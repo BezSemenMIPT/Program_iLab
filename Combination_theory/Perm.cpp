@@ -49,9 +49,15 @@ int main() {
 				cout << "(" << t2[x] << ", " << t2[(x + 1) % n] << ", " << third << ") ";
 			}
 			cout << endl;
+			for (int x = 0; x < n; x++) {
+				third = sum - t2[x] - t2[(x + 1) % n];
+				cout << "(" << third << ", " << t2[(x + 1) % n] << ", " << t2[x] << ") ";
+			}
+			cout << endl;
 		} while (next_permutation(t2.begin(), t2.end()));
 	} while (next_permutation(temp.begin(), temp.end()));
 }
+
 
 
 
