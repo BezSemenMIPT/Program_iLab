@@ -23,7 +23,7 @@ public:
 	~SearchTree();
 };
 
-template<typename T> SearchTree<T>& SearchTree<T>:: operator=(const SearchTree<T>& copy_t) {//переделать(переписывание уже существующего объекта)
+template<typename T> SearchTree<T>& SearchTree<T>:: operator=(const SearchTree<T>& copy_t) {
 	if (this != &copy_t) {
 		std::queue<tree<T>*> q;
 		tree<T>* Node;
@@ -168,7 +168,6 @@ template<typename T> void SearchTree <T> ::balance(tree<T>* const V_c) {
 				else if (pp->lhs == NULL) pp->dif = 1;
 				else if (pp->rhs == NULL) pp->dif = -1;
 				else pp->dif = pp->rhs->height - pp->lhs->height;
-				//if (V->lhs != NULL) V->lhs->par = pp;
 				if(V->rhs != NULL) V->dif = V->rhs->height - V->lhs->height;
 				else V->dif = -1;
 				if (V->dif > 0) V->height = V->rhs->height + 1;
@@ -248,7 +247,6 @@ template<typename T> void SearchTree <T> ::balance(tree<T>* const V_c) {
 				else if (pp->lhs == NULL) pp->dif = 1;
 				else if (pp->rhs == NULL) pp->dif = -1;
 				else pp->dif = pp->rhs->height - pp->lhs->height;
-				//if (V->rhs != NULL) V->rhs->par = pp;
 				if (V->lhs != NULL) V->dif = V->rhs->height - V->lhs->height;
 				else V->dif = 1;
 				if (V->dif > 0) V->height = V->rhs->height + 1;
@@ -267,7 +265,6 @@ template<typename T> void SearchTree <T> ::balance(tree<T>* const V_c) {
 				else pp->dif = pp->rhs->height - pp->lhs->height;
 				if (pp->dif > 0) pp->height = pp->rhs->height + 1;
 				else pp->lhs != NULL ? pp->height = pp->lhs->height + 1 : pp->height = 1;
-				//if (V->lhs != NULL) V->lhs->par = pp;
 				if (V->rhs != NULL) V->dif = V->rhs->height - V->lhs->height;
 				else V->dif = -1;
 				if (V->dif > 0) V->height = V->rhs->height + 1;
@@ -319,7 +316,7 @@ template<typename T> void SearchTree <T> ::remove(const T& elem) {
 		else if (p->key == elem) {
 			n = next(p);
 			if (n != NULL) {
-				if (n->height < p->height) {//ERROR
+				if (n->height < p->height) {
 					p->key = n->key;
 					temp = n->rhs;
 					temp_1 = n->par;
@@ -339,7 +336,7 @@ template<typename T> void SearchTree <T> ::remove(const T& elem) {
 					balance(temp_1);
 					break;
 				}
-				else {//p doesn't have right child
+				else {
 					temp = p->lhs;
 					temp_1 = p->par;
 					p->par->lhs = temp;
