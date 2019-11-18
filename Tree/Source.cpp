@@ -1,21 +1,41 @@
 #include<iostream>
 #include<vector>
 #include"Header.h"
-
+#include<set>
+#include<time.h>
+#include<stdio.h>
+using std::set;
 
 int main() {
-	int x, top_d;
-	std::cin >> top_d;
-	SearchTree<int> a{top_d};
-	for (int i = 1; i < 10000; i++) {
-		x = i;
-		a.push(x);
+	SearchTree<int> a{-1};
+	for (long long int i = 100000; i > 0; --i) {
+		a.push(i);
 	}
-	SearchTree<int> b(a);
-	for (int i = 1; i < 10000; i++) {
+	a.verification();
+	set<int> s;
+	clock_t start = clock();
+	for (long long int i = 100000; i > 0; --i) {
+		a.push(i);
+	}
+	for (long long int i = 100000; i > 0; --i) {
 		a.remove(i);
 	}
-	std::cout << b.exists(10000) << std::endl;
+	clock_t end = clock();
+	double seconds = (double)(end - start) / CLOCKS_PER_SEC;
+	std::cout << "Time measured with myself AVL-tree: " << seconds << std::endl;
+
+	start = clock();
+	for (long long int i = 100000; i > 0; --i) {
+		s.insert(i);
+	}
+	for (long long int i = 100000; i > 0; --i) {
+		s.erase(i);
+	}
+	end = clock();
+	seconds = (double)(end - start) / CLOCKS_PER_SEC;
+	std::cout << "Time measured with standart set: " << seconds << std::endl;
+	SearchTree<int> b{1};
+	b = a;
 }
 
 
